@@ -10,9 +10,13 @@
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<!-- M1: mDNS discovery needs the multicast entitlement, or macOS
-	     silently blocks Bonjour browsing/advertising. -->
-	<key>com.apple.developer.networking.multicast</key>
-	<true/>
+	<!-- NOTE: the multicast entitlement (com.apple.developer.networking.multicast)
+	     is intentionally NOT in this Debug file. It requires a development
+	     certificate / provisioning profile with that capability, so an
+	     unsigned `flutter run` fails with: "Runner has entitlements that
+	     require signing with a development certificate." Debug builds
+	     therefore skip mDNS discovery on macOS — use "Add by IP" (manual
+	     IP + port 48150) to pair; pairing itself does not need mDNS.
+	     Release.entitlements keeps multicast for signed release builds. -->
 </dict>
 </plist>
