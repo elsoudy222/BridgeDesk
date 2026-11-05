@@ -184,12 +184,20 @@ test/
 
 ## Platform notes (M1)
 
-- **macOS:** the Runner has the multicast entitlement
+- **macOS:** the Release build has the multicast entitlement
   (`com.apple.developer.networking.multicast`) plus
   `NSLocalNetworkUsageDescription` / `NSBonjourServices`
   (`_bridgedesk._tcp`) in `Info.plist`. Without them macOS silently
-  blocks mDNS. Note: the multicast entitlement needs Apple approval
-  for App Store distribution later; it works in development builds.
+  blocks mDNS. The multicast entitlement needs a signed provisioning
+  profile with that capability (Apple approval for App Store
+  distribution later), so it is **not** in `DebugProfile.entitlements`:
+  an unsigned `flutter run` would fail with "Runner has entitlements
+  that require signing with a development certificate." In debug
+  builds, discovery on macOS falls back to **Add by IP** (manual IP +
+  port `48150`); pairing itself does not need mDNS. If you want mDNS
+  discovery in debug too, open `macos/Runner.xcworkspace` in Xcode,
+  turn on "Automatically manage signing" with your Apple ID team, and
+  add the multicast entitlement back to `DebugProfile.entitlements`.
   First launch still needs Open Anyway for the unsigned build.
 - **Windows:** allow BridgeDesk through the firewall on private
   networks when prompted; SmartScreen "Run anyway" for the unsigned
