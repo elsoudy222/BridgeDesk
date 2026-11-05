@@ -11,6 +11,25 @@ TLS channel work between two machines on the same Wi-Fi. Mouse/keyboard
 sharing is M2, clipboard sync and file transfer are M3 — see
 `../MVP_PLAN.md`.
 
+## Download
+
+Ready-to-run builds for Mac and Windows are on the
+[Releases page](https://github.com/elsoudy222/BridgeDesk/releases/latest):
+`BridgeDesk-macOS.dmg` (or `.zip`) for macOS 13+, and
+`BridgeDesk-Windows.zip` for Windows 10/11. The builds are unsigned
+for now — see the first-launch notes under "Build installers" below.
+
+Releases are built automatically by GitHub Actions (`.github/workflows/release.yml`)
+when a version tag is pushed, e.g. `git tag v0.1.0 && git push origin v0.1.0`.
+The Releases page stays empty until the first tag. See the root
+[README.md](../README.md) for the full release steps.
+
+> **After cloning:** app icons are binary, so they are not committed.
+> Run `python3 tool/generate_icons.py` once (needs Pillow:
+> `pip install pillow`) before your first build, or the macOS/Windows
+> builds will fail on the missing icon files. The release workflow
+> runs this step automatically.
+
 ## How pairing works (M1)
 
 1. Start BridgeDesk on **both** computers, on the same Wi-Fi.
